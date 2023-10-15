@@ -1,24 +1,23 @@
 package com.example.myapplication
 
-import android.provider.ContactsContract.CommonDataKinds.Note
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.selects.select
 
 
 @Dao
 interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(note:Note)
+   suspend fun insert(note: Notes)
 
     @Delete
-    fun delete(note: Note)
+   suspend fun delete(note: Notes)
 
     @Query("Select * from notes_table order by id ASC")
-    fun getallnotes():List<Note>
+    fun getallnotes():LiveData<List<Notes>>
 
 
 }
